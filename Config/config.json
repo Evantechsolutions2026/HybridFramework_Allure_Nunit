@@ -1,6 +1,6 @@
 {
     "browser": "Chrome",
-    "environment": null,
+    "environment": "qa",
     "port": "web/index.php/auth/login",
     "baseUrl": "https://opensource-demo.orangehrmlive.com/",
     "apiBaseUrl": "https://reqres.in/api",
