@@ -1,0 +1,174 @@
+{
+  "uuid": "23e0ca2c-b866-449a-b3f3-70ef75a1d3f8",
+  "historyId": "70e0ac3c8c4fc09d56ebd8f72c6f188d",
+  "testCaseId": "b8b32091ddb78fa4183b752b4e3cc8f1",
+  "fullName": "Framework:Framework.Tests.APITest.Get_User_Details()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": "ParallelWorker#5"
+    },
+    {
+      "name": "host",
+      "value": "DESKTOP-41THG0U"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "NUnit 3"
+    },
+    {
+      "name": "package",
+      "value": "Framework.Tests"
+    },
+    {
+      "name": "testMethod",
+      "value": "Get_User_Details"
+    },
+    {
+      "name": "testClass",
+      "value": "APITest"
+    }
+  ],
+  "links": [],
+  "name": "Get_User_Details",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "  Expected content 'username' not found\r\n  Expected: True\r\n  But was:  False\r\n",
+    "trace": "   at Framework.API.ApiHelper.<>c__DisplayClass8_0.<ValidateResponse>b__0() in C:\\Users\\Welcome\\Downloads\\EnterpriseHybridFramework_AllureReady\\API\\ApiHelper.cs:line 162\r\n   at Allure.Net.Commons.AllureApi.<>c__DisplayClass34_0.<Step>b__0()\r\n   at Allure.Net.Commons.AllureApi.ExecuteAction[T](String name, Action`1 start, Func`1 action, Action`1 resolve)\r\n   at Allure.Net.Commons.AllureApi.ExecuteStep[T](String name, Func`1 action)\r\n   at Allure.Net.Commons.AllureApi.Step(String name, Action action)\r\n   at Framework.API.ApiHelper.ValidateResponse(RestResponse response, HttpStatusCode expectedStatus, String expectedContent) in C:\\Users\\Welcome\\Downloads\\EnterpriseHybridFramework_AllureReady\\API\\ApiHelper.cs:line 156\r\n   at Framework.Tests.APITest.Get_User_Details() in C:\\Users\\Welcome\\Downloads\\EnterpriseHybridFramework_AllureReady\\Tests\\APITest.cs:line 29\r\n"
+  },
+  "stage": "finished",
+  "steps": [
+    {
+      "name": "GET Request → 35311414-8a7f-44ec-8c81-441d20868239",
+      "status": "passed",
+      "stage": "finished",
+      "steps": [
+        {
+          "name": "API Execution Details",
+          "status": "passed",
+          "stage": "finished",
+          "steps": [
+            {
+              "name": "Method: GET",
+              "status": "passed",
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "start": 1776171055001,
+              "stop": 1776171055002
+            },
+            {
+              "name": "Endpoint: 35311414-8a7f-44ec-8c81-441d20868239",
+              "status": "passed",
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "start": 1776171055002,
+              "stop": 1776171055002
+            },
+            {
+              "name": "Headers",
+              "status": "passed",
+              "stage": "finished",
+              "steps": [
+                {
+                  "name": "{\r\n  \"Accept\": \"application/json\"\r\n}",
+                  "status": "passed",
+                  "stage": "finished",
+                  "steps": [],
+                  "attachments": [],
+                  "parameters": [],
+                  "start": 1776171055008,
+                  "stop": 1776171055008
+                }
+              ],
+              "attachments": [],
+              "parameters": [],
+              "start": 1776171055003,
+              "stop": 1776171055008
+            },
+            {
+              "name": "Authorization: Token",
+              "status": "passed",
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "start": 1776171055008,
+              "stop": 1776171055008
+            },
+            {
+              "name": "Response Body",
+              "status": "passed",
+              "stage": "finished",
+              "steps": [
+                {
+                  "name": "{\"message\":\"Hello World\"}",
+                  "status": "passed",
+                  "stage": "finished",
+                  "steps": [],
+                  "attachments": [],
+                  "parameters": [],
+                  "start": 1776171055008,
+                  "stop": 1776171055008
+                }
+              ],
+              "attachments": [],
+              "parameters": [],
+              "start": 1776171055008,
+              "stop": 1776171055008
+            },
+            {
+              "name": "Status Code: OK",
+              "status": "passed",
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [],
+              "start": 1776171055011,
+              "stop": 1776171055011
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "start": 1776171055001,
+          "stop": 1776171055011
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "start": 1776171054057,
+      "stop": 1776171055011
+    },
+    {
+      "name": "Validate API Response",
+      "status": "failed",
+      "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false,
+        "message": "  Expected content 'username' not found\r\n  Expected: True\r\n  But was:  False\r\n",
+        "trace": "NUnit.Framework.AssertionException:   Expected content 'username' not found\r\n  Expected: True\r\n  But was:  False\r\n\r\n   at NUnit.Framework.Assert.ReportFailure(String message)\r\n   at NUnit.Framework.Assert.ReportFailure(ConstraintResult result, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.IsTrue(Boolean condition, String message, Object[] args)\r\n   at Framework.API.ApiHelper.<>c__DisplayClass8_0.<ValidateResponse>b__0() in C:\\Users\\Welcome\\Downloads\\EnterpriseHybridFramework_AllureReady\\API\\ApiHelper.cs:line 162\r\n   at Allure.Net.Commons.AllureApi.<>c__DisplayClass34_0.<Step>b__0()\r\n   at Allure.Net.Commons.AllureApi.ExecuteAction[T](String name, Action`1 start, Func`1 action, Action`1 resolve)\r\n   at Allure.Net.Commons.AllureApi.ExecuteStep[T](String name, Func`1 action)\r\n   at Allure.Net.Commons.AllureApi.Step(String name, Action action)\r\n   at Framework.API.ApiHelper.ValidateResponse(RestResponse response, HttpStatusCode expectedStatus, String expectedContent) in C:\\Users\\Welcome\\Downloads\\EnterpriseHybridFramework_AllureReady\\API\\ApiHelper.cs:line 156\r\n   at Framework.Tests.APITest.Get_User_Details() in C:\\Users\\Welcome\\Downloads\\EnterpriseHybridFramework_AllureReady\\Tests\\APITest.cs:line 29"
+      },
+      "stage": "finished",
+      "steps": [],
+      "attachments": [],
+      "parameters": [],
+      "start": 1776171055011,
+      "stop": 1776171055078
+    }
+  ],
+  "attachments": [],
+  "parameters": [],
+  "start": 1776171053908,
+  "stop": 1776171055092
+}

@@ -1,0 +1,27 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# NUnit / Test Results
+TestResults/
+*.trx
+
+# Allure results
+allure-results/
+allure-report/
+
+# Logs
+*.log
+
+# NuGet
+packages/
+*.nupkg
+
+# OS files
+.DS_Store
+Thumbs.db
