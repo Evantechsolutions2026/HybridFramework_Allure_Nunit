@@ -8,9 +8,27 @@
         "username": "Admin",
         "password": "admin123"
     },
-    "timeouts": {
-        "explicitWait": 15
+  "timeouts": {
+    "pageLoad": 30,
+    "implicitWait": 5,
+    "explicitWait": 10
+  },
+  {
+    "database": {
+      "server": "",
+      "dbName": ""
+    },
+    "users": {
+      "admin": {
+        "username": "",
+        "password": ""
+      },
+      "common": {
+        "username": "",
+        "password": ""
+      }
     }
+  }
 }
 
 

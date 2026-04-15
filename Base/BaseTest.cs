@@ -20,6 +20,8 @@ namespace Framework.Base
             driver = DriverFactory.GetDriver();
             driver.Manage().Window.Maximize();
             string URL = DriverFactory.EnvSetupUrl();
+            //for base url load
+            SetDefaultTimeouts(driver);
             driver.Navigate().GoToUrl(URL);
             Logger.Info("Launched browser and navigated to base URL");
         }
@@ -45,6 +47,12 @@ namespace Framework.Base
             }
 
             DriverFactory.QuitDriver();
+        }
+        private static void SetDefaultTimeouts(IWebDriver driver)
+        {
+            int pageLoadTime = ConfigReader.GetInt("timeouts", "pageLoad");
+
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(pageLoadTime);
         }
     }
 }

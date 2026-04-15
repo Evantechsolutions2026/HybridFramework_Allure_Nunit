@@ -7,12 +7,12 @@ namespace Framework.Pages
     public class HomePage
     {
         private IWebDriver driver;
-        private WaitHelper wait;
+        private ActionHelper action;
 
         public HomePage(IWebDriver driver)
         {
             this.driver = driver;
-            wait = new WaitHelper(driver);
+            action = new ActionHelper(driver);
         }
 
         private By profileMenu = By.XPath("//div[@aria-label='Account']");
@@ -20,8 +20,8 @@ namespace Framework.Pages
 
         public void Logout()
         {
-            wait.Clickable(profileMenu).Click();
-            wait.Clickable(logoutBtn).Click();
+            action.Clickable(profileMenu).Click();
+            action.Clickable(logoutBtn).Click();
         }
     }
 }

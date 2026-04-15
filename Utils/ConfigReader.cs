@@ -1,3 +1,4 @@
+using Framework.POJO;
 using Newtonsoft.Json.Linq;
 using System.IO;
 
@@ -28,5 +29,14 @@ namespace Framework.Utils
         {
             return config[parent][child].ToObject<int>();
         }
+        public static DbUser GetDbUser(string userType)
+        {
+            return new DbUser
+            {
+                Username = config["users"][userType]["username"].ToString(),
+                Password = config["users"][userType]["password"].ToString()
+            };
+        }
+
     }
 }

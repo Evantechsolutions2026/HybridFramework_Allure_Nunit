@@ -1,15 +1,18 @@
 
+using Framework.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Safari;
+using System;
 using System.Threading;
-using Framework.Utils;
 
 namespace Framework.Base
 {
     public static class DriverFactory
     {
+        // headless mode -> need to add 
         private static ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
 
         public static IWebDriver GetDriver() => driver.Value;
@@ -29,6 +32,9 @@ namespace Framework.Base
                     break;
                 case "edge":
                     driver.Value = new EdgeDriver();
+                    break;
+                case "safari":
+                    driver.Value = new SafariDriver();
                     break;
                 default:
                     driver.Value = new ChromeDriver();
@@ -58,5 +64,6 @@ namespace Framework.Base
         {
             driver.Value?.Quit();
         }
+        
     }
 }
