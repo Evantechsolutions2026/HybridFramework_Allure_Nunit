@@ -1,10 +1,10 @@
+using Framework.Model;
 using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
 
 namespace Framework.Utils
 {
-
-
     public static class ConfigReader
     {
         private static readonly JObject config;
@@ -12,9 +12,31 @@ namespace Framework.Utils
         // Static constructor to load configuration from config.json 
         static ConfigReader()
         {
-            string configPath = Path.Combine(Directory.GetCurrentDirectory(), "Config", "config.json");
-            config = JObject.Parse(File.ReadAllText(configPath));
-        }
+                try
+                {
+                    string configPath = Path.Combine(
+                        AppDomain.CurrentDomain.BaseDirectory,
+                        "Config",
+                        "config.json"
+                    );
+
+                    Console.WriteLine("PATH: " + configPath);
+
+                    if (!File.Exists(configPath))
+                        throw new FileNotFoundException("Config not found!");
+
+                    string json = File.ReadAllText(configPath);
+
+                    Console.WriteLine("JSON: " + json);
+
+                    config = JObject.Parse(json);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("ERROR: " + ex.Message);
+                    throw;
+                }
+            }
 
         public static string Get(string key)
         {
@@ -30,9 +52,14 @@ namespace Framework.Utils
         {
             return config[parent][child].ToObject<int>();
         }
-        public static bool GetBool(string key)
+        public static DbUser GetDbUser(string userType)
         {
-            return bool.Parse(config[key].ToString());
+            return new DbUser
+            {
+                Username = config["users"][userType]["username"].ToString(),
+                Password = config["users"][userType]["password"].ToString()
+            };
         }
+
     }
 }

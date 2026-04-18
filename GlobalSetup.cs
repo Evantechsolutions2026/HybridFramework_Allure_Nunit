@@ -15,6 +15,7 @@ namespace Framework
         {
           
             AllureHelper.CopyHistoryToResults();
+            // exe file 
         }
 
         [OneTimeTearDown]

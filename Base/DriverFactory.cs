@@ -1,72 +1,69 @@
+
 using Framework.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Safari;
 using System;
+using System.Threading;
 
-namespace Framework.Driver
+namespace Framework.Base
 {
-    public class DriverFactory
+    public static class DriverFactory
     {
-        private static IWebDriver driver;
+        // headless mode -> need to add 
+        private static ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
 
+        public static IWebDriver GetDriver() => driver.Value;
+
+        // Browser initialization
         public static void InitDriver()
         {
             string browser = ConfigReader.Get("browser").ToLower();
-            bool isHeadless = ConfigReader.GetBool("headless");
 
             switch (browser)
             {
                 case "chrome":
-                    var chromeOptions = new ChromeOptions();
-
-                    if (isHeadless)
-                    {
-                        chromeOptions.AddArgument("--headless=new"); // 🔥 latest mode
-                        chromeOptions.AddArgument("--disable-gpu");
-                        chromeOptions.AddArgument("--window-size=1920,1080");
-                    }
-
-                    driver = new ChromeDriver(chromeOptions);
+                    driver.Value = new ChromeDriver();
                     break;
-
-                case "edge":
-                    var edgeOptions = new EdgeOptions();
-
-                    if (isHeadless)
-                    {
-                        edgeOptions.AddArgument("--headless=new");
-                        edgeOptions.AddArgument("--window-size=1920,1080");
-                    }
-
-                    driver = new EdgeDriver(edgeOptions);
-                    break;
-
                 case "firefox":
-                    var firefoxOptions = new FirefoxOptions();
-
-                    if (isHeadless)
-                    {
-                        firefoxOptions.AddArgument("--headless");
-                    }
-
-                    driver = new FirefoxDriver(firefoxOptions);
+                    driver.Value = new FirefoxDriver();
                     break;
-
+                case "edge":
+                    driver.Value = new EdgeDriver();
+                    break;
+                case "safari":
+                    driver.Value = new SafariDriver();
+                    break;
                 default:
-                    throw new Exception("Invalid browser");
+                    driver.Value = new ChromeDriver();
+                    break;
             }
         }
-
-        public static IWebDriver GetDriver()
+        // Env  initialization default QA
+        public static string EnvSetupUrl()
         {
-            return driver;
-        }
+            string env = ConfigReader.Get("environment").ToLower();
 
+            switch (env.ToLower())
+            {
+                case "qa":
+                    return ConfigReader.Get("baseUrl") + ConfigReader.Get("port");
+                case "dev":
+                    return ConfigReader.Get("baseUrl") + ConfigReader.Get("port");
+                case "uat":
+                    return ConfigReader.Get("baseUrl") + ConfigReader.Get("port");
+                default:
+                    Logger.Info("Default Running in QA Environment");
+                    return ConfigReader.Get("baseUrl") + ConfigReader.Get("port");
+            }
+        }
+        //Quit Method
         public static void QuitDriver()
         {
-            driver?.Quit();
+            driver.Value?.Quit();
         }
+        
     }
 }

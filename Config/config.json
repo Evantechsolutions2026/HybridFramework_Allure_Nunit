@@ -1,19 +1,34 @@
 {
   "browser": "Chrome",
-  "headless": false,
   "environment": "qa",
   "port": "web/index.php/auth/login",
   "baseUrl": "https://opensource-demo.orangehrmlive.com/",
   "apiBaseUrl": "https://reqres.in/api",
+
   "credentials": {
     "username": "Admin",
     "password": "admin123"
   },
+
   "timeouts": {
-    "explicitWait": 15
+    "pageLoad": 30,
+    "implicitWait": 5,
+    "explicitWait": 10
+  },
+
+  "database": {
+    "server": "",
+    "dbName": ""
+  },
+
+  "users": {
+    "admin": {
+      "username": "",
+      "password": ""
+    },
+    "common": {
+      "username": "",
+      "password": ""
+    }
   }
 }
-
-
-
-

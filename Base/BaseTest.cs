@@ -4,7 +4,6 @@ using Framework.Utils;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
-using Framework.Driver;
 
 namespace Framework.Base
 {
@@ -20,7 +19,10 @@ namespace Framework.Base
             DriverFactory.InitDriver();
             driver = DriverFactory.GetDriver();
             driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl(ConfigReader.Get("baseUrl"));
+            string URL = DriverFactory.EnvSetupUrl();
+            //for base url load
+            SetDefaultTimeouts(driver);
+            driver.Navigate().GoToUrl(URL);
             Logger.Info("Launched browser and navigated to base URL");
         }
         [TearDown]
@@ -45,6 +47,12 @@ namespace Framework.Base
             }
 
             DriverFactory.QuitDriver();
+        }
+        private static void SetDefaultTimeouts(IWebDriver driver)
+        {
+            int pageLoadTime = ConfigReader.GetInt("timeouts", "pageLoad");
+
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(pageLoadTime);
         }
     }
 }
