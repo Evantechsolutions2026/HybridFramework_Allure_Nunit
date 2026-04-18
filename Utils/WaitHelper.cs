@@ -28,6 +28,47 @@ namespace Framework.Utils
             return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
                 .Until(ExpectedConditions.ElementToBeClickable(locator));
         }
-        // need to add Action class, 
+
+        // For hover (element should be visible)
+        public IWebElement Hoverable(By locator)
+        {
+            return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
+                .Until(ExpectedConditions.ElementIsVisible(locator));
+        }
+
+        // For scroll (element should be visible)
+        public IWebElement Scrollable(By locator)
+        {
+            return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
+                .Until(ExpectedConditions.ElementIsVisible(locator));
+        }
+
+        // For JS click (element should exist in DOM)
+        public IWebElement JsClickable(By locator)
+        {
+            return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
+                .Until(ExpectedConditions.ElementExists(locator));
+        }
+
+        // For drag & drop (element visible)
+        public IWebElement Draggable(By locator)
+        {
+            return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
+                .Until(ExpectedConditions.ElementIsVisible(locator));
+        }
+
+        // For dropdown
+        public IWebElement Selectable(By locator)
+        {
+            return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
+                .Until(ExpectedConditions.ElementIsVisible(locator));
+        }
+
+        // For iframe
+        public IWebDriver SwitchToFrame(By locator)
+        {
+            return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
+                .Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt(locator));
+        }
     }
 }

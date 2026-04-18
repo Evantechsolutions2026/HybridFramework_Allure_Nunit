@@ -8,6 +8,7 @@ namespace Framework.Pages
     {
         private IWebDriver driver;
         private WaitHelper wait;
+        private ActionHelper action;
 
         public LoginPage(IWebDriver driver)
         {

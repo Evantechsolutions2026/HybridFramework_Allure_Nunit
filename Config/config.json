@@ -1,16 +1,17 @@
 {
-    "browser": "Chrome",
-    "environment": "qa",
-    "port": "web/index.php/auth/login",
-    "baseUrl": "https://opensource-demo.orangehrmlive.com/",
-    "apiBaseUrl": "https://reqres.in/api",
-    "credentials": {
-        "username": "Admin",
-        "password": "admin123"
-    },
-    "timeouts": {
-        "explicitWait": 15
-    }
+  "browser": "Chrome",
+  "headless": false,
+  "environment": "qa",
+  "port": "web/index.php/auth/login",
+  "baseUrl": "https://opensource-demo.orangehrmlive.com/",
+  "apiBaseUrl": "https://reqres.in/api",
+  "credentials": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+  "timeouts": {
+    "explicitWait": 15
+  }
 }
 
 

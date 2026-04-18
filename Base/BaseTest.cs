@@ -4,6 +4,7 @@ using Framework.Utils;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
+using Framework.Driver;
 
 namespace Framework.Base
 {
@@ -19,8 +20,7 @@ namespace Framework.Base
             DriverFactory.InitDriver();
             driver = DriverFactory.GetDriver();
             driver.Manage().Window.Maximize();
-            string URL = DriverFactory.EnvSetupUrl();
-            driver.Navigate().GoToUrl(URL);
+            driver.Navigate().GoToUrl(ConfigReader.Get("baseUrl"));
             Logger.Info("Launched browser and navigated to base URL");
         }
         [TearDown]

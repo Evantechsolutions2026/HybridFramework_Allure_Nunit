@@ -3,6 +3,8 @@ using System.IO;
 
 namespace Framework.Utils
 {
+
+
     public static class ConfigReader
     {
         private static readonly JObject config;
@@ -27,6 +29,10 @@ namespace Framework.Utils
         public static int GetInt(string parent, string child)
         {
             return config[parent][child].ToObject<int>();
+        }
+        public static bool GetBool(string key)
+        {
+            return bool.Parse(config[key].ToString());
         }
     }
 }

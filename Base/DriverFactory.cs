@@ -1,62 +1,72 @@
-
+using Framework.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
-using System.Threading;
-using Framework.Utils;
+using OpenQA.Selenium.Firefox;
+using System;
 
-namespace Framework.Base
+namespace Framework.Driver
 {
-    public static class DriverFactory
+    public class DriverFactory
     {
-        private static ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
+        private static IWebDriver driver;
 
-        public static IWebDriver GetDriver() => driver.Value;
-
-        // Browser initialization
         public static void InitDriver()
         {
             string browser = ConfigReader.Get("browser").ToLower();
+            bool isHeadless = ConfigReader.GetBool("headless");
 
             switch (browser)
             {
                 case "chrome":
-                    driver.Value = new ChromeDriver();
-                    break;
-                case "firefox":
-                    driver.Value = new FirefoxDriver();
-                    break;
-                case "edge":
-                    driver.Value = new EdgeDriver();
-                    break;
-                default:
-                    driver.Value = new ChromeDriver();
-                    break;
-            }
-        }
-        // Env  initialization default QA
-        public static string EnvSetupUrl()
-        {
-            string env = ConfigReader.Get("environment").ToLower();
+                    var chromeOptions = new ChromeOptions();
 
-            switch (env.ToLower())
-            {
-                case "qa":
-                    return ConfigReader.Get("baseUrl") + ConfigReader.Get("port");
-                case "dev":
-                    return ConfigReader.Get("baseUrl") + ConfigReader.Get("port");
-                case "uat":
-                    return ConfigReader.Get("baseUrl") + ConfigReader.Get("port");
+                    if (isHeadless)
+                    {
+                        chromeOptions.AddArgument("--headless=new"); // 🔥 latest mode
+                        chromeOptions.AddArgument("--disable-gpu");
+                        chromeOptions.AddArgument("--window-size=1920,1080");
+                    }
+
+                    driver = new ChromeDriver(chromeOptions);
+                    break;
+
+                case "edge":
+                    var edgeOptions = new EdgeOptions();
+
+                    if (isHeadless)
+                    {
+                        edgeOptions.AddArgument("--headless=new");
+                        edgeOptions.AddArgument("--window-size=1920,1080");
+                    }
+
+                    driver = new EdgeDriver(edgeOptions);
+                    break;
+
+                case "firefox":
+                    var firefoxOptions = new FirefoxOptions();
+
+                    if (isHeadless)
+                    {
+                        firefoxOptions.AddArgument("--headless");
+                    }
+
+                    driver = new FirefoxDriver(firefoxOptions);
+                    break;
+
                 default:
-                    Logger.Info("Default Running in QA Environment");
-                    return ConfigReader.Get("baseUrl") + ConfigReader.Get("port");
+                    throw new Exception("Invalid browser");
             }
         }
-        //Quit Method
+
+        public static IWebDriver GetDriver()
+        {
+            return driver;
+        }
+
         public static void QuitDriver()
         {
-            driver.Value?.Quit();
+            driver?.Quit();
         }
     }
 }
