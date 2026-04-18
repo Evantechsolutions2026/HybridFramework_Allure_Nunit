@@ -1,5 +1,5 @@
-// Default Action setup
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -28,56 +28,133 @@ namespace Framework.Utils
             return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
                 .Until(ExpectedConditions.ElementToBeClickable(locator));
         }
-<<<<<<<< HEAD:Utils/WaitHelper.cs
 
-        // For hover (element should be visible)
+        public IWebElement Selectable(By locator)
+        {
+            return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
+                .Until(ExpectedConditions.ElementExists(locator));
+        }
+
         public IWebElement Hoverable(By locator)
         {
             return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
                 .Until(ExpectedConditions.ElementIsVisible(locator));
         }
 
-        // For scroll (element should be visible)
         public IWebElement Scrollable(By locator)
         {
             return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
                 .Until(ExpectedConditions.ElementIsVisible(locator));
         }
 
-        // For JS click (element should exist in DOM)
         public IWebElement JsClickable(By locator)
         {
             return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
-                .Until(ExpectedConditions.ElementExists(locator));
+                .Until(ExpectedConditions.ElementToBeClickable(locator));
         }
 
-        // For drag & drop (element visible)
         public IWebElement Draggable(By locator)
         {
             return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
                 .Until(ExpectedConditions.ElementIsVisible(locator));
         }
 
-        // For dropdown
-        public IWebElement Selectable(By locator)
+        public void Hover(By locator)
         {
-            return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
-                .Until(ExpectedConditions.ElementIsVisible(locator));
+            new Actions(driver)
+                .MoveToElement(Hoverable(locator))
+                .Perform();
         }
 
-        // For iframe
-        public IWebDriver SwitchToFrame(By locator)
+        public void ScrollToElement(By locator)
         {
-            return new WebDriverWait(driver, TimeSpan.FromSeconds(timeout))
-                .Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt(locator));
+            ((IJavaScriptExecutor)driver)
+                .ExecuteScript("arguments[0].scrollIntoView(true);", Scrollable(locator));
         }
-========
-        // need to add Action class, 
 
-        // hover , right click , key board action  , normal click , JS click , scroll , move and drop , text, dropdown  , -> selection  , div  
-        // iframe , swirch , alerrt  , popup  , window handlers 
-        // exp . fluent ( if needed)
-        
->>>>>>>> 9a9b922e99d778f138d9c6cd65cb314f6c4a5e67:Utils/ActionHelper.cs
+        public void ScrollToBottom()
+        {
+            ((IJavaScriptExecutor)driver)
+                .ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
+        }
+
+        public void ScrollToTop()
+        {
+            ((IJavaScriptExecutor)driver)
+                .ExecuteScript("window.scrollTo(0, 0);");
+        }
+
+        public void JsClick(By locator)
+        {
+            ((IJavaScriptExecutor)driver)
+                .ExecuteScript("arguments[0].click();", JsClickable(locator));
+        }
+
+        public void DragAndDrop(By source, By target)
+        {
+            new Actions(driver)
+                .DragAndDrop(Draggable(source), Draggable(target))
+                .Perform();
+        }
+
+        public void SelectByText(By locator, string text)
+        {
+            new SelectElement(Selectable(locator)).SelectByText(text);
+        }
+
+        public void SelectByValue(By locator, string value)
+        {
+            new SelectElement(Selectable(locator)).SelectByValue(value);
+        }
+
+        public void SelectByIndex(By locator, int index)
+        {
+            new SelectElement(Selectable(locator)).SelectByIndex(index);
+        }
+
+        public void DeselectByText(By locator, string text)
+        {
+            new SelectElement(Selectable(locator)).DeselectByText(text);
+        }
+
+        public void DeselectByValue(By locator, string value)
+        {
+            new SelectElement(Selectable(locator)).DeselectByValue(value);
+        }
+
+        public void DeselectByIndex(By locator, int index)
+        {
+            new SelectElement(Selectable(locator)).DeselectByIndex(index);
+        }
+
+        public void DeselectAll(By locator)
+        {
+            new SelectElement(Selectable(locator)).DeselectAll();
+        }
+
+        public void SwitchToFrame(By locator)
+        {
+            driver.SwitchTo().Frame(Visible(locator));
+        }
+
+        public void SwitchToFrame(int index)
+        {
+            driver.SwitchTo().Frame(index);
+        }
+
+        public void SwitchToFrame(string nameOrId)
+        {
+            driver.SwitchTo().Frame(nameOrId);
+        }
+
+        public void SwitchToParentFrame()
+        {
+            driver.SwitchTo().ParentFrame();
+        }
+
+        public void SwitchToDefault()
+        {
+            driver.SwitchTo().DefaultContent();
+        }
     }
 }

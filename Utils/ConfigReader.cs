@@ -61,5 +61,10 @@ namespace Framework.Utils
             };
         }
 
+        public static bool GetBool(string key)
+        {
+            return bool.Parse(config[key].ToString());
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 {
   "browser": "Chrome",
+  "headless": true,
   "environment": "qa",
   "port": "web/index.php/auth/login",
   "baseUrl": "https://opensource-demo.orangehrmlive.com/",
